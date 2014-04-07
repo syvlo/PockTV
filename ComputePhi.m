@@ -1,16 +1,18 @@
-function [ Phi ] = ComputePhi( PhiInit, PInit, StepD, StepP )
+function [ Phi ] = ComputePhi( PhiInit, PInit, Input, LabelQuantification,  StepD, StepP )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
     DefaultStepP = 1/sqrt(3);
     DefaultStepD = 1/sqrt(3);
+    
+    maxIter = 10;
 
     %Check Inputs.
-    fprintf('Arguments verification...');
-    if (nargin < 4)
+    fprintf('Arguments sanity check...');
+    if (nargin < 6)
         StepP = DefaultStepP;
     end
-    if (nargin < 3)
+    if (nargin < 5)
         StepD = DefaultStepD;
     end
 
@@ -42,14 +44,14 @@ function [ Phi ] = ComputePhi( PhiInit, PInit, StepD, StepP )
     
     disp('Starting to iterate...');
     numIter = 0;
-    while (max(max(max(abs(PhiK-PhiKPlus1)))) > 0.5)%Did something happend during last iter?
+    while (max(max(max(abs(PhiK-PhiKPlus1)))) > 0.0001&&numIter < maxIter)%Did something happend during last iter?
         numIter = numIter + 1;
         fprintf('Iter #%i\n', numIter);
         
         PhiK = PhiKPlus1;
         PK = PKPlus1;
         
-        [PhiKPlus1, PKPlus1] = Iterate(PhiK, PK);
+        [PhiKPlus1, PKPlus1] = Iterate(PhiK, PK, StepP, StepD, Input, LabelQuantification);
     end
     disp('Solution found!');
     
