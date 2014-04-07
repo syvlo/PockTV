@@ -9,9 +9,16 @@ function [ P ] = ConstructP( Input, LabelQuantification )
     for (i=1:Height)
         for (j=1:Width)
             for (k=1:labelsSize)
-                P(i, j, k, 1) = 0.7;
-                P(i, j, k, 2) = 0.7;
-                P(i, j, k, 3) = Rayleigh(Input(i, j), LabelQuantification(k));
+                P(i, j, k, 1) = rand;
+                P(i, j, k, 2) = rand;
+                denom = max(1, sqrt(P(i, j, k, 1)^2 + P(i, j, k, 2)^2));
+                P(i, j, k, 1) = 0.7;%P(i, j, k, 1) / denom;
+                P(i, j, k, 2) = 0.7;%P(i, j, k, 2) / denom;
+                if(LabelQuantification(k) == 0)
+                    P(i, j, k, 3) = 10000; %FIXME, hardcoded...
+                else
+                    P(i, j, k, 3) = Rayleigh(Input(i, j), LabelQuantification(k));
+                end
             end
         end
     end

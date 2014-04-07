@@ -5,7 +5,7 @@ function [ Phi ] = ComputePhi( PhiInit, PInit, Input, LabelQuantification,  Step
     DefaultStepP = 1/sqrt(3);
     DefaultStepD = 1/sqrt(3);
     
-    maxIter = 10;
+    maxIter = 20;
 
     %Check Inputs.
     fprintf('Arguments sanity check...');
