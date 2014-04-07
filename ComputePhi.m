@@ -1,0 +1,59 @@
+function [ Phi ] = ComputePhi( PhiInit, PInit, StepD, StepP )
+%UNTITLED Summary of this function goes here
+%   Detailed explanation goes here
+
+    DefaultStepP = 1/sqrt(3);
+    DefaultStepD = 1/sqrt(3);
+
+    %Check Inputs.
+    fprintf('Arguments verification...');
+    if (nargin < 4)
+        StepP = DefaultStepP;
+    end
+    if (nargin < 3)
+        StepD = DefaultStepD;
+    end
+
+    if (StepP * StepD > 1/3 + 0.00001)
+        warning('StepP * StepD = %d. Convergence is not guaranteed (should be < 1/3).', StepP * StepD);
+    end
+
+    [h, w ,k] = size(PhiInit);
+    if (w == 1||h == 1||k == 1)
+        error('PhiInit should be a 3D matrix (Height x Width x (Vmax - Vmin + 2)).');
+    end
+    
+    [h2,w2,k2,s] = size(PInit);
+    if (w2 == 1||h2 == 1||k2 == 1||s ~= 3)
+        error('PInit should be a 4D matrix (Height x Width x (Vmax - Vmin + 2) x 3).');
+    end
+    
+    if (w ~= w2||h ~= h2||k ~= k2)
+        error('First 3 dimensions of PhiInit and PInit should match.');
+    end
+    disp ('Done.');
+    
+    fprintf('Using:\nStepP = %d\n', StepP);
+    fprintf('StepD = %d\n\n', StepD);
+    
+    PhiK = PhiInit;
+    PhiKPlus1 = zeros(size(PhiK));
+    PKPlus1 = PInit;
+    
+    disp('Starting to iterate...');
+    numIter = 0;
+    while (max(max(max(abs(PhiK-PhiKPlus1)))) > 0.5)%Did something happend during last iter?
+        numIter = numIter + 1;
+        fprintf('Iter #%i\n', numIter);
+        
+        PhiK = PhiKPlus1;
+        PK = PKPlus1;
+        
+        [PhiKPlus1, PKPlus1] = Iterate(PhiK, PK);
+    end
+    disp('Solution found!');
+    
+    Phi = PhiKPlus1;
+    
+end
+
