@@ -5,7 +5,7 @@ function [ Phi ] = ComputePhi( PhiInit, PInit, Input, LabelQuantification,  Step
     DefaultStepP = 1/sqrt(3);
     DefaultStepD = 1/sqrt(3);
     
-    maxIter = 30;
+    maxIter = 50;
 
     %Check Inputs.
     fprintf('Arguments sanity check...');
@@ -41,6 +41,7 @@ function [ Phi ] = ComputePhi( PhiInit, PInit, Input, LabelQuantification,  Step
     PhiK = zeros(size(PhiInit));
     PhiKPlus1 = PhiInit;
     PKPlus1 = PInit;
+    LastE = 10000000;
     
     disp('Starting to iterate...');
     numIter = 0;
@@ -48,6 +49,11 @@ function [ Phi ] = ComputePhi( PhiInit, PInit, Input, LabelQuantification,  Step
         numIter = numIter + 1;
         Img = ConstructImageFromPhi(PhiKPlus1, LabelQuantification);
         E = ComputeEnergy(Input, Img, LabelQuantification);
+%         if (LastE < E && numIter > 2)
+%             PhiKPlus1 = PhiK;
+%             break;
+%         end
+        LastE = E;
         fprintf('Iter #%i, Changed = %d, Energy = %d\n', numIter, sum(sum(sum(abs(PhiKPlus1 - PhiK)))), E);
         PhiK = PhiKPlus1;
         PK = PKPlus1;

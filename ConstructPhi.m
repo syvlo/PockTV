@@ -5,7 +5,7 @@ function [ Phi, LabelQuantification ] = ConstructPhi( Input )
     VMax = max(max(Input));
     
     i = 1;
-    curVal = 0;
+    curVal = 1;
     while (curVal < 1000)
         LabelQuantification(i) = curVal;
         curVal = curVal + 30;

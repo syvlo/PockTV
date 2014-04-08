@@ -1,4 +1,4 @@
-InputImage = 'cropped.imw'%'ProjIMA/Images/PileParis/Inputs/Cropped/Eiffel_20090124.imw';%'ProjIMA/Images/ToyRadar/naka3_2.imw'%
+InputImage = 'cropped.imw'%'ProjIMA/Images/ToyRadar/naka3_2.imw'%'ProjIMA/Images/PileParis/Inputs/Cropped/Eiffel_20090124.imw';%
 OutputImageName = 'test';
 
 Input = imw2mat9(InputImage);

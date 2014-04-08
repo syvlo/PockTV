@@ -4,5 +4,6 @@ function [ Output ] = Rayleigh( V, U )
 
     Output = double(V)^2 / double(U)^2 + 2*log(double(U));
 
+    %Output = Output / 2;%Mock of beta term...
 end
 
