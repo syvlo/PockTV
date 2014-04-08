@@ -14,8 +14,8 @@ function [ P ] = ConstructP( Input, LabelQuantification )
 %                 denom = max(1, sqrt(P(i, j, k, 1)^2 + P(i, j, k, 2)^2));
 %                 P(i, j, k, 1) = P(i, j, k, 1) / denom;
 %                 P(i, j, k, 2) = P(i, j, k, 2) / denom;
-                P(i, j, k, 1) = 0.65;
-                P(i, j, k, 2) = 0.75;
+                P(i, j, k, 1) = 0.7;
+                P(i, j, k, 2) = 0.7;
                 if(LabelQuantification(k) == 0)
                     P(i, j, k, 3) = 10000; %FIXME, hardcoded...
                 else
