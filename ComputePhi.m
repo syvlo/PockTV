@@ -5,7 +5,7 @@ function [ Phi ] = ComputePhi( PhiInit, PInit, Input, LabelQuantification,  Step
     DefaultStepP = 1/sqrt(3);
     DefaultStepD = 1/sqrt(3);
     
-    maxIter = 20;
+    maxIter = 50;
 
     %Check Inputs.
     fprintf('Arguments sanity check...');
@@ -38,15 +38,15 @@ function [ Phi ] = ComputePhi( PhiInit, PInit, Input, LabelQuantification,  Step
     fprintf('Using:\nStepP = %d\n', StepP);
     fprintf('StepD = %d\n\n', StepD);
     
-    PhiK = PhiInit;
-    PhiKPlus1 = zeros(size(PhiK));
+    PhiK = zeros(size(PhiInit));
+    PhiKPlus1 = PhiInit;
     PKPlus1 = PInit;
     
     disp('Starting to iterate...');
     numIter = 0;
-    while (max(max(max(abs(PhiK-PhiKPlus1)))) > 0.0001&&numIter < maxIter)%Did something happend during last iter?
+    while (sum(sum(sum(abs(PhiKPlus1 - PhiK)))) > 100&&numIter < maxIter)%Did something happend during last iter?
         numIter = numIter + 1;
-        fprintf('Iter #%i\n', numIter);
+        fprintf('Iter #%i, Changed = %d\n', numIter, sum(sum(sum(abs(PhiKPlus1 - PhiK)))));
         
         PhiK = PhiKPlus1;
         PK = PKPlus1;

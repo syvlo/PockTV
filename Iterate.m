@@ -7,9 +7,9 @@ function [ PhiKPlus1, PKPlus1 ] = Iterate( PhiK, PK, StepP, StepD, Input, LabelQ
     for i=1:size(PK, 1)
         for j=1:size(PK, 2)
             for k=1:size(PK, 3)
-                if (i == 3 && j == 3)
+                if (i == 2 && j == 2)
                     IDiff = 0;
-                end;
+                end
                 if (i > 1)
                     IDiff = PK(i, j, k, 1) - PK(i - 1, j, k, 1);
                 else
@@ -27,7 +27,7 @@ function [ PhiKPlus1, PKPlus1 ] = Iterate( PhiK, PK, StepP, StepD, Input, LabelQ
                     KDiff = 0;
                     Delta = LabelQuantification(2) - LabelQuantification(1);
                 end
-                div(i, j, k) =  IDiff + JDiff + abs(KDiff) / Delta;%FIXME hardcoded...
+                div(i, j, k) =  IDiff + JDiff + KDiff / Delta;%FIXME hardcoded...
             end
         end
     end
@@ -47,6 +47,9 @@ function [ PhiKPlus1, PKPlus1 ] = Iterate( PhiK, PK, StepP, StepD, Input, LabelQ
     for i=1:size(PK, 1)
         for j=1:size(PK, 2)
             for k=1:size(PK, 3)
+                if (i == 2 && j == 2)
+                    test = 0;
+                end
                 if (i < size(PK, 1))
                     grad(i, j, k, 1) = PhiK(i + 1, j, k) - PhiK(i, j, k);
                 else
