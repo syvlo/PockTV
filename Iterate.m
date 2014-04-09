@@ -74,10 +74,10 @@ function [ PhiKPlus1, PKPlus1 ] = Iterate( PhiK, PK, StepP, StepD, Input, LabelQ
     for i=1:size(PK, 1)
         for j=1:size(PK, 2)
             for k=1:size(PK, 3)
-                denom = max(1, sqrt(grad(i, j, k, 1)^2 + grad(i, j, k, 1)^2));
-                grad(i, j, k, 1) = grad(i, j, k, 1) / denom;
-                grad(i, j, k, 2) = grad(i, j, k, 2) / denom;
-                grad(i, j, k, 3) = grad(i, j, k, 3) / max(1, abs(grad(i, j, k, 3)) / Rayleigh(Input(i, j), LabelQuantification(k)));
+                denom = max(1, sqrt(PKPlus1(i, j, k, 1)^2 + PKPlus1(i, j, k, 1)^2));
+                PKPlus1(i, j, k, 1) = PKPlus1(i, j, k, 1) / denom;
+                PKPlus1(i, j, k, 2) = PKPlus1(i, j, k, 2) / denom;
+                PKPlus1(i, j, k, 3) = PKPlus1(i, j, k, 3) / max(1, abs(PKPlus1(i, j, k, 3)) / Rayleigh(Input(i, j), LabelQuantification(k)));
             end
         end
     end
