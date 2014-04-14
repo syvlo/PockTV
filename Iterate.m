@@ -1,6 +1,5 @@
 function [ PhiKPlus1, PKPlus1 ] = Iterate( PhiK, PK, StepP, StepD, Input, LabelQuantification )
-%UNTITLED6 Summary of this function goes here
-%   Detailed explanation goes here
+%Find phi_k+1 and p_k+1 out of phi_k and p_k
 
     %Step1
     div = zeros(size(PhiK));

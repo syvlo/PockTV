@@ -1,9 +1,9 @@
 function [ Phi, LabelQuantification ] = ConstructPhi( Input )
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+%Get initial phi. (Basically, translates the input image into phi.
 
     VMax = max(max(Input));
     
+    %Quantification step.
     i = 1;
     curVal = 1;
     while (curVal < 1000)
@@ -21,6 +21,7 @@ function [ Phi, LabelQuantification ] = ConstructPhi( Input )
     [~,labelsSize] = size(LabelQuantification);
     Phi = zeros(Height, Width, labelsSize);
     
+    %Construction using the layer cake idea.
     for(i=1:labelsSize)
         [r, v] = find(Input >= LabelQuantification(i)); %FIX ME: Step to speed up!
         for (j=1:size(r, 1))

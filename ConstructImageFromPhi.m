@@ -1,11 +1,12 @@
 function [ Output ] = ConstructImageFromPhi( Phi, LabeLQuantification )
-%UNTITLED3 Summary of this function goes here
-%   Detailed explanation goes here
+%Construct the ouptut image out of function phi.
 
+    %Is it a good choice? Normally every value in [0;1] should work...
     Thresh = 0.3;
     
     Output = zeros(size(Phi, 1), size(Phi, 2));
     
+    %Use layer cake formula.
     for (i=2:size(LabeLQuantification, 2))
         B = double(Phi(:,:,i) > Thresh);
         Output = Output + (LabeLQuantification(i) - LabeLQuantification(i - 1)) .* B;

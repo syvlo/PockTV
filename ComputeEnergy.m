@@ -1,6 +1,5 @@
 function [ E ] = ComputeEnergy( Input, Image, Labels )
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+%Compute the energy (debugging purposes).
     E = 0;
     
     for i=1:size(Image, 1)
