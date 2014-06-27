@@ -56,7 +56,7 @@ Sz = size(PK, 3);
     PhiKPlus1(indexes == true) = 0;
     indexes = PhiKPlus1(:,:,:) > 1;
     PhiKPlus1(indexes == true) = 1;
-    PhiKPlus1 = (PhiKPlus1>0).*( (PhiKPlus1<1).*PhiKPlus1+(PhiKPlus1>=1) );
+    %PhiKPlus1 = (PhiKPlus1>0).*( (PhiKPlus1<1).*PhiKPlus1+(PhiKPlus1>=1) );
     PhiKPlus1(:,:,1) = 1;
     PhiKPlus1(:,:,end) = 0;
     
@@ -91,8 +91,8 @@ Sz = size(PK, 3);
         for j=1:Sy
             for k=1:Sz
                 denom = max(1, sqrt(PKPlus1(i, j, k, 1)^2 + PKPlus1(i, j, k, 2)^2));
-                PKPlus1(i, j, k, 1) = PKPlus1(i, j, k, 1) / denom;
-                PKPlus1(i, j, k, 2) = PKPlus1(i, j, k, 2) / denom;
+                PKPlus1(i, j, k, 1) = PKPlus1(i, j, k, 1) / max(1, abs(PKPlus1(i, j, k, 1)));%denom;%
+                PKPlus1(i, j, k, 2) = PKPlus1(i, j, k, 2) / max(1, abs(PKPlus1(i, j, k, 2)));%denom;%
                 PKPlus1(i, j, k, 3) = PKPlus1(i, j, k, 3) / max(1, abs(PKPlus1(i, j, k, 3)) / Rayleigh(Input(i, j), LabelQuantification(k)));
             end
         end

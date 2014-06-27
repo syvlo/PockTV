@@ -2,7 +2,23 @@ function [ Phi, LabelQuantification ] = ConstructPhi( Input, nblevels, maxlevel 
 %Get initial phi. (Basically, translates the input image into phi.
 
 LabelQuantification = linspace(min(Input(:)), maxlevel, nblevels);
+%     VMax = max(max(Input));
+%     
+%     %Quantification step.
+%     i = 1;
+%     curVal = 0;
+%     while (curVal < 0.01)
+%         LabelQuantification(i) = curVal;
+%         curVal = curVal + 0.0005;
+%         i = i + 1;
+%     end
+%     while (curVal < VMax + 0.0001)
+%         LabelQuantification(i) = curVal;
+%         curVal = curVal + 0.01;
+%         i = i + 1;
+%     end
 [Height, Width] = size(Input);
+nblevels = size(LabelQuantification, 2);
 Phi = zeros(Height, Width, nblevels);
 for i=1:nblevels-1
     Phi(:,:,i) = Input>=LabelQuantification(i);

@@ -1,14 +1,14 @@
 %% test Lo�c
 
-I = im2double(imread('cameraman.tif'));
-nblabels = 16;
+I = im2double(imread('cameraman.tif'));%im2double(imread('/home/users/lobry/Images/Toy1/Original.png'));%imaNorm;%
+nblabels = 2;
 [Phi, labels] = ConstructPhi(I,nblabels+1,max(I(:)));
 I2 = ConstructImageFromPhi(Phi,labels);
 %newimage([I I2]);
 
-nbiter=100;
+nbiter=1500;
 %Phi = ConstructPhi(I*0,nblabels+1,max(I(:)));
-P = zeros(size(I,1),size(I,2),numel(labels),3);
+%P = zeros(size(I,1),size(I,2),numel(labels),3);
 P = InitP( Phi, I, labels );
 figure;
 
@@ -17,7 +17,7 @@ t2 = 1/sqrt(3);
 
 for k=1:nbiter
     [Phi, P] = Iterate(Phi, P, t1, t2, I, labels);
-    imshow(ConstructImageFromPhi(Phi,labels),[]);
+    imshow(ConstructImageFromPhi(Phi,labels),[]);%sarimage(uint16(ConstructImageFromPhi(Phi,labels)));%
     colorbar;
     title(sprintf('iter %d',k));
     drawnow;
