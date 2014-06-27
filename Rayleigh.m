@@ -1,7 +1,13 @@
 function [ Output ] = Rayleigh( V, U )
 %Compute Rayleigh as dataterm.
 
-    Output =1E6*(V-U)^2 + 1; % debug: on commence par une attache aux donn�es quadratique...
+    if (U > 0.4)
+        U = 1;
+    else
+        U = 0;
+    end
+
+    Output = 10 * (V-U)^2 + 1; % debug: on commence par une attache aux donn�es quadratique...
     %Output = V^2 / U^2 + 2*log(U);
 
     %Do we want to weight the data term ?
